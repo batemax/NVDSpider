@@ -9,14 +9,14 @@ import scrapy
 
 class MonthItem(scrapy.Item):
     # url
-    href = scrapy.Field()
+    url = scrapy.Field()
 
 # cvvID
 class IDItem(scrapy.Item):
     # cvvID
     cvvID = scrapy.Field()
     # url
-    href = scrapy.Field()
+    # url = scrapy.Field()
 
 # V3标准的影响
 class CVSSV3(scrapy.Item):
@@ -126,6 +126,8 @@ class VulnItem(scrapy.Item):
     # CVSSV2
     # 基准分数
     baseScore_V2 = scrapy.Field()
+    # 危险程度
+    baseType_V2 = scrapy.Field()
     # 向量
     vector_V2 = scrapy.Field()
     # 影响分数

@@ -27,13 +27,14 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 3
+# DOWNLOAD_DELAY = 1
+RANDOM_DELAY = 2
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-#COOKIES_ENABLED = False
+COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
@@ -53,11 +54,14 @@ DOWNLOAD_DELAY = 3
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-   'NVDSpider.middlewares.NvdspiderDownloaderMiddleware': 543,
+    'NVDSpider.middlewares.NvdspiderDownloaderMiddleware': 543,
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-    'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400
+    'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
+    'NVDSpider.middlewares.RandomDelayMiddleware':999
+    # 'NVDSpider.middlewares.RandomProxyMiddleware': 100
+
 }
-RANDOM_UA_TYPE = 'random'
+RANDOM_UA_TYPE = 'chrome'
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -67,9 +71,11 @@ RANDOM_UA_TYPE = 'random'
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'NVDSpider.pipelines.NvdspiderPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   # 'NVDSpider.pipelines.NvdspiderPipeline': 300,
+    # 'NVDSpider.pipelines.NvdspiderPipeline': 300,
+    'NVDSpider.MongoDBPipeline.MongoDBPipeline': 200
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -91,3 +97,25 @@ RANDOM_UA_TYPE = 'random'
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+
+MONGO_HOST = "127.0.0.1"  # 主机IP
+MONGO_PORT = 27017  # 端口号
+MONGO_DB = "spider"  # 库名
+MONGO_ID = "cvvid"
+MONGO_DETAIL = "cvvdetail"  # collection名
+MONGO_USER = "user"
+MONGO_PSW = "user"
+
+
+# MONGODB_URI = 'mongodb://localhost:27017'
+# MONGODB_DB_NAME = 'spider'
+
+# LOG_LEVEL = 'WARNING'
+# LOG_FILE = "all.log"
+
+IPPOOL = [
+{"proxy": "https://14.134.190.93:55086"},
+{"proxy": "https://183.147.255.197:39761"},
+{"proxy": "https://183.135.253.255:47562"}
+]

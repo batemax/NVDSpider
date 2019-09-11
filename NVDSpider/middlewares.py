@@ -7,7 +7,13 @@
 
 from scrapy import signals
 from fake_useragent import UserAgent
-
+from scrapy.downloadermiddlewares.httpproxy import HttpProxyMiddleware
+from collections import defaultdict
+import logging
+import time
+import json
+import random
+from NVDSpider.settings import IPPOOL
 
 class NvdspiderSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
@@ -118,3 +124,28 @@ class NvdspiderDownloaderMiddleware(object):
 #         def get_ua():
 #             return getattr(self.ua,self.ua_type)
 #         request.headers.setdefault('User-Agent',get_ua())
+
+# 设置代理
+class RandomProxyMiddleware(object):
+    def process_request(self,request,spider):
+        proxy_ip = random.choice(IPPOOL)["proxy"]
+        print(proxy_ip)
+        request.meta["proxy"] = proxy_ip
+
+#  设置随机时延
+
+class RandomDelayMiddleware(object):
+    def __init__(self,delay):
+        self.delay = delay
+
+    @classmethod
+    def from_crawler(cls,crawler):
+        delay = crawler.spider.settings.get("RANDOM_DELAY", 10)
+        if not isinstance(delay, int):
+            raise ValueError("RANDOM_DELAY need a int")
+        return cls(delay)
+
+    def process_request(self,request,spider):
+        delay = random.randint(0,self.delay)
+        time.sleep(delay)
+

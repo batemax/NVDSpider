@@ -2,14 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b0feb695-7ef8-4de0-aa9f-90fd1cf24481" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/NVDSpider/spiders/agentSpider.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NVDSpider/MongoDBPipeline.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NVDSpider/spiders/dtailSpider.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NVDSpider/spiders/increSpider.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NVDSpider/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NVDSpider/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NVDSpider/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/NVDSpider/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NVDSpider/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/NVDSpider/items.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NVDSpider/middlewares.py" beforeDir="false" afterPath="$PROJECT_DIR$/NVDSpider/middlewares.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NVDSpider/pipelines.py" beforeDir="false" afterPath="$PROJECT_DIR$/NVDSpider/pipelines.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NVDSpider/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/NVDSpider/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NVDSpider/spiders/agentSpider.py" beforeDir="false" afterPath="$PROJECT_DIR$/NVDSpider/spiders/agentSpider.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NVDSpider/spiders/idSpider.py" beforeDir="false" afterPath="$PROJECT_DIR$/NVDSpider/spiders/idSpider.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cvvid.json" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,14 +24,104 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NVDSpider/spiders/idSpider.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="57" column="89" lean-forward="true" selection-start-line="57" selection-start-column="89" selection-end-line="57" selection-end-column="89" />
+            <state relative-caret-position="644">
+              <caret line="28" column="24" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
               <folding>
-                <element signature="e#24#37#0" expanded="true" />
+                <element signature="e#31#44#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/NVDSpider/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="230">
+              <caret line="10" column="56" lean-forward="true" selection-start-line="10" selection-start-column="56" selection-end-line="10" selection-end-column="56" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NVDSpider/spiders/increSpider.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="299">
+              <caret line="13" column="63" selection-start-line="13" selection-start-column="63" selection-end-line="13" selection-end-column="63" />
+              <folding>
+                <element signature="e#38#51#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NVDSpider/spiders/dtailSpider.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="184">
+              <caret line="23" column="80" lean-forward="true" selection-start-line="23" selection-start-column="80" selection-end-line="23" selection-end-column="80" />
+              <folding>
+                <element signature="e#31#44#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NVDSpider/test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="46">
+              <caret line="2" selection-start-line="2" selection-end-line="7" selection-end-column="56" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NVDSpider/utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="161">
+              <caret line="7" column="56" lean-forward="true" selection-start-line="7" selection-start-column="56" selection-end-line="7" selection-end-column="56" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NVDSpider/MongoDBPipeline.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-92">
+              <caret line="8" column="43" lean-forward="true" selection-start-line="8" selection-start-column="43" selection-end-line="8" selection-end-column="43" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NVDSpider/pipelines.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="598">
+              <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NVDSpider/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="99">
+              <caret line="114" column="15" selection-start-line="114" selection-start-column="15" selection-end-line="114" selection-end-column="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NVDSpider/items.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="164">
+              <caret line="82" column="9" selection-start-line="82" selection-start-column="4" selection-end-line="82" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -44,9 +139,15 @@
     <findStrings>
       <find>2015-</find>
       <find>downloader_mi</find>
+      <find>cook</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="bertranwang &lt;bowdenwong@outlook.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
@@ -54,20 +155,26 @@
       <list>
         <option value="$PROJECT_DIR$/NVDSpider/spiders/example.py" />
         <option value="$PROJECT_DIR$/detail.json" />
-        <option value="$PROJECT_DIR$/NVDSpider/items.py" />
-        <option value="$PROJECT_DIR$/NVDSpider/settings.py" />
-        <option value="$PROJECT_DIR$/NVDSpider/middlewares.py" />
-        <option value="$PROJECT_DIR$/NVDSpider/__init__.py" />
         <option value="$PROJECT_DIR$/NVDSpider/spiders/agentSpider.py" />
+        <option value="$PROJECT_DIR$/NVDSpider/middlewares.py" />
         <option value="$PROJECT_DIR$/NVDSpider/spiders/idSpider.py" />
+        <option value="$PROJECT_DIR$/NVDSpider/spiders/increSpider.py" />
+        <option value="$PROJECT_DIR$/NVDSpider/pipelines.py" />
+        <option value="$PROJECT_DIR$/NVDSpider/MongoDBPipeline.py" />
+        <option value="$PROJECT_DIR$/NVDSpider/__init__.py" />
+        <option value="$PROJECT_DIR$/NVDSpider/settings.py" />
+        <option value="$PROJECT_DIR$/NVDSpider/test.py" />
+        <option value="$PROJECT_DIR$/NVDSpider/utils.py" />
+        <option value="$PROJECT_DIR$/NVDSpider/items.py" />
+        <option value="$PROJECT_DIR$/NVDSpider/spiders/dtailSpider.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="406" />
-    <option name="y" value="-20" />
+    <option name="x" value="22" />
+    <option name="y" value="-30" />
     <option name="width" value="1845" />
-    <option name="height" value="1020" />
+    <option name="height" value="742" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -89,12 +196,6 @@
               <item name="NVDSpider" type="b2602c69:ProjectViewProjectNode" />
               <item name="NVDSpider" type="462c0819:PsiDirectoryNode" />
               <item name="NVDSpider" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NVDSpider" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NVDSpider" type="462c0819:PsiDirectoryNode" />
-              <item name="NVDSpider" type="462c0819:PsiDirectoryNode" />
-              <item name="spiders" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -120,7 +221,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.__init__">
     <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="NVDSpider" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -143,9 +244,32 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="NVDSpider" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/NVDSpider" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/NVDSpider/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.__init__" />
+        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
@@ -164,12 +288,22 @@
       <workItem from="1567944225091" duration="7672000" />
       <workItem from="1567985086802" duration="775000" />
       <workItem from="1567989370814" duration="22736000" />
-      <workItem from="1568075527390" duration="2401000" />
+      <workItem from="1568075527390" duration="4813000" />
+      <workItem from="1568094919545" duration="11590000" />
+      <workItem from="1568162128837" duration="25106000" />
     </task>
+    <task id="LOCAL-00001" summary="init">
+      <created>1568078140113</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1568078140113</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34030000" />
+    <option name="totallyTimeSpent" value="73138000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -182,24 +316,23 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="28" y="-7" width="1515" height="878" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17776252" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19148937" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3297587" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32841823" />
+      <window_info anchor="bottom" id="Debug" order="2" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.49965683" weight="0.39008042" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32707775" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32894737" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32841823" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.41152814" />
-      <window_info anchor="bottom" id="Python Console" order="12" weight="0.3297587" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50034314" side_tool="true" weight="0.39008042" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.41018766" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.32841823" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -210,8 +343,56 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.log" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init" />
+    <option name="LAST_COMMIT_MESSAGE" value="init" />
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/NVDSpider$__init__.coverage" NAME="__init__ Coverage Results" MODIFIED="1568025898516" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/NVDSpider" />
+    <SUITE FILE_PATH="coverage/NVDSpider$__init__.coverage" NAME="__init__ Coverage Results" MODIFIED="1568199342266" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/NVDSpider" />
+    <SUITE FILE_PATH="coverage/NVDSpider$test.coverage" NAME="test Coverage Results" MODIFIED="1568197979528" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/NVDSpider" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/month.json" />
@@ -224,20 +405,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cvvid.json" />
     <entry file="file://$PROJECT_DIR$/list.json" />
-    <entry file="file://$PROJECT_DIR$/NVDSpider/items.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2024">
-          <caret line="88" column="32" lean-forward="true" selection-start-line="88" selection-start-column="32" selection-end-line="88" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/NVD.json" />
-    <entry file="file://$PROJECT_DIR$/NVDSpider/middlewares.py">
+    <entry file="file://$PROJECT_DIR$/detail.json" />
+    <entry file="file://$PROJECT_DIR$/cvvs.json" />
+    <entry file="file://$PROJECT_DIR$/NVDSpider/cvvs.json" />
+    <entry file="file://$PROJECT_DIR$/NVDSpider/request.json" />
+    <entry file="file://$PROJECT_DIR$/NVDSpider/spiders/agentSpider.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1917">
-          <caret line="104" selection-start-line="104" selection-end-line="104" />
+        <state relative-caret-position="92">
+          <caret line="4" selection-start-line="4" selection-end-line="6" selection-end-column="55" />
           <folding>
-            <element signature="e#170#196#0" expanded="true" />
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -245,51 +423,105 @@
     <entry file="file://$PROJECT_DIR$/NVDSpider/spiders/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/NVDSpider/spiders/agentSpider.py">
+    <entry file="file://$PROJECT_DIR$/NVDSpider/cvvid.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="9" column="28" lean-forward="true" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+        <state relative-caret-position="276">
+          <caret line="12" column="28" lean-forward="true" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NVDSpider/all.log">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NVDSpider/middlewares.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="148" column="44" lean-forward="true" selection-start-line="148" selection-start-column="44" selection-end-line="148" selection-end-column="44" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#170#196#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NVDSpider/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" selection-start-line="2" selection-end-line="7" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NVDSpider/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="114" column="15" selection-start-line="114" selection-start-column="15" selection-end-line="114" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NVDSpider/pipelines.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="598">
+          <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NVDSpider/MongoDBPipeline.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-92">
+          <caret line="8" column="43" lean-forward="true" selection-start-line="8" selection-start-column="43" selection-end-line="8" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NVDSpider/spiders/idSpider.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="644">
+          <caret line="28" column="24" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
+          <folding>
+            <element signature="e#31#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NVDSpider/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" column="56" lean-forward="true" selection-start-line="7" selection-start-column="56" selection-end-line="7" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NVDSpider/spiders/increSpider.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="13" column="63" selection-start-line="13" selection-start-column="63" selection-end-line="13" selection-end-column="63" />
+          <folding>
+            <element signature="e#38#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NVDSpider/items.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="82" column="9" selection-start-line="82" selection-start-column="4" selection-end-line="82" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NVDSpider/spiders/dtailSpider.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="23" column="80" lean-forward="true" selection-start-line="23" selection-start-column="80" selection-end-line="23" selection-end-column="80" />
+          <folding>
+            <element signature="e#31#44#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/NVDSpider/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="4" column="55" lean-forward="true" selection-start-line="4" selection-start-column="55" selection-end-line="4" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NVDSpider/pipelines.py">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
-          <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NVDSpider/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1265">
-          <caret line="55" column="46" lean-forward="true" selection-start-line="55" selection-start-column="46" selection-end-line="55" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/detail.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NVDSpider/spiders/idSpider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="57" column="89" lean-forward="true" selection-start-line="57" selection-start-column="89" selection-end-line="57" selection-end-column="89" />
-          <folding>
-            <element signature="e#24#37#0" expanded="true" />
-          </folding>
+          <caret line="10" column="56" lean-forward="true" selection-start-line="10" selection-start-column="56" selection-end-line="10" selection-end-column="56" />
         </state>
       </provider>
     </entry>
