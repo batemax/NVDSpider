@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# 数据库操作pipeline
 import pymongo
 from NVDSpider.settings import MONGO_HOST
 from NVDSpider.settings import MONGO_PORT
