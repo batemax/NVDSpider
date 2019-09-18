@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # 从json读取数据，并存储到数据库中
+import zipfile
 from datetime import datetime
 from urllib.parse import urljoin
 
@@ -14,21 +15,20 @@ from NVDSpider.settings import MONGO_VULN
 
 class mongoSync(object):
     def __init__(self):
-        self.client = pymongo.MongoClient(MONGO_HOST,MONGO_PORT)
+        self.client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
         self.db = self.client[MONGO_DB]  # 获得数据库的句柄
         self.coll = self.db[MONGO_VULN]  # 获得collection的句柄
-        # self.list = []
 
-    def loadFile(self,path):
-        files = os.listdir(path)
+    def load_file(self, folder_path):
+        files = os.listdir(folder_path)
         for file in files:
             if not os.path.isdir(file):
-                file = path + file
+                file = folder_path + file
                 # self.list.append(file)
                 self.sync(file)
 
-    def sync(self,file):
-        with open(file,'rb') as f:
+    def sync(self, file):
+        with open(file, 'rb') as f:
             data = json.load(f)
             cve_items = data["CVE_Items"]
             for cve_item in cve_items:
@@ -51,7 +51,7 @@ class mongoSync(object):
                 try:
                     cve_impact_v2 = cve_item['impact']['baseMetricV2']
                 except:
-                    print(cve_id+"没有V2信息")
+                    print(cve_id + "没有V2信息")
                     self.coll.update({'_id': cve_id}, {'$set': item_dict}, upsert=True)
                 else:
                     v2_vector = cve_impact_v2['cvssV2']['vectorString']
@@ -82,7 +82,7 @@ class mongoSync(object):
                     try:
                         cve_impact_v3 = cve_item['impact']['baseMetricV3']
                     except:
-                        print(cve_id+"没有V3信息")
+                        print(cve_id + "没有V3信息")
                     else:
                         v3_vector = cve_impact_v3['cvssV3']['vectorString']
                         v3_attackVector = cve_impact_v3['cvssV3']['attackVector']

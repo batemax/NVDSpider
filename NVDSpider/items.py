@@ -13,10 +13,16 @@ class NvdspiderItem(scrapy.Item):
     # name = scrapy.Field()
     pass
 
+# 文件类
+class FileItem(scrapy.Item):
+    file_urls = scrapy.Field()
+
+# ID类
 class IDItem(scrapy.Item):
     _id = scrapy.Field()
     vuln_url = scrapy.Field()
 
+# 详情类
 class VulnItem(scrapy.Item):
     _id = scrapy.Field()
     vuln_desc = scrapy.Field()

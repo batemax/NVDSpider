@@ -1,22 +1,23 @@
 # -*- coding: utf-8 -*-
-# 主函数
+# 测试函数
 import os
-import pymongo
-from NVDSpider.settings import MONGO_HOST
-from NVDSpider.settings import MONGO_PORT
-from NVDSpider.settings import MONGO_DB
-from NVDSpider.settings import MONGO_ID
-from scrapy import cmdline
 from NVDSpider.mongoSync import mongoSync
+from NVDSpider.utils import unzip_file
+from NVDSpider.utils import delete_zip
 
-def initMongo():
-    try:
-        mongo = mongoSync()
-        path = "./data/"
-        mongo.loadFile(path)
-        return True
-    except:
-        return False
+
+def zip2json(file_path):
+    zip_result = unzip_file(file_path)
+    if zip_result:
+        delete_result = delete_zip(file_path)
+        print("解压完成")
+        return delete_result
+    else:
+        return zip_result
+
+
+
+
 
 def increCrawl():
     try:
@@ -26,6 +27,7 @@ def increCrawl():
     except:
         return False
 
+
 def detailCrawl():
     try:
         os.system('scrapy crawl detailSpider')
@@ -33,6 +35,7 @@ def detailCrawl():
         return True
     except:
         return False
+
 
 def testCrawl():
     try:
@@ -42,44 +45,18 @@ def testCrawl():
     except:
         return False
 
+
+def dataCrawl():
+    try:
+        os.system('scrapy crawl dataSpider')
+        print("下载完成")
+        return True
+    except:
+        return False
+
+
 if __name__ == "__main__":
-
-    # try:
-    #     print(a)
-    # except:
-    #     print("b")
-    # finally:
-    #     print("finally")
-    # print("ok")
-
-    # 测试爬虫
-    # cmdline.execute('scrapy crawl increSpider'.split())
-    # cmdline.execute('scrapy crawl detailSpider'.split())
-    # cmdline.execute('scrapy crawl testSpider'.split())
-
-    # 执行
-    incre_result = increCrawl()
-    print(incre_result)
-    print("增量爬取ID完成")
-    if incre_result:
-        detail_result = detailCrawl()
-        print(detail_result)
-        print("增量爬取详情完成")
-
-    # 测试初步配置
-    # result = initMongo()
-    # print(result)
-    # if result:
-    #     cmdline.execute('scrapy crawl increSpider'.split())
-
-    # 测试数据库
-    # start_urls = []
-    # client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
-    # db = client[MONGO_DB]
-    # coll = db[MONGO_ID]
-    # results = coll.find()
-    # for item in results:
-    #     url = item['vuln_url']
-    #     start_urls.append(url)
-    # client.close()
-    # print(start_urls)
+    file_path = './data/'
+    data_result = dataCrawl()
+    if data_result:
+        zip_result = zip2json(file_path)
