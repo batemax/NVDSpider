@@ -42,6 +42,13 @@ def testCrawl():
     except:
         return False
 
+def dataCrawl():
+    try:
+        os.system('scrapy crawl dataSpider')
+        return True
+    except:
+        return False
+
 if __name__ == "__main__":
 
     # try:
@@ -57,14 +64,16 @@ if __name__ == "__main__":
     # cmdline.execute('scrapy crawl detailSpider'.split())
     # cmdline.execute('scrapy crawl testSpider'.split())
 
+    dataCrawl()
+
     # 执行
-    incre_result = increCrawl()
-    print(incre_result)
-    print("增量爬取ID完成")
-    if incre_result:
-        detail_result = detailCrawl()
-        print(detail_result)
-        print("增量爬取详情完成")
+    # incre_result = increCrawl()
+    # print(incre_result)
+    # print("增量爬取ID完成")
+    # if incre_result:
+    #     detail_result = detailCrawl()
+    #     print(detail_result)
+    #     print("增量爬取详情完成")
 
     # 测试初步配置
     # result = initMongo()
