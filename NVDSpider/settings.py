@@ -105,6 +105,6 @@ LOG_LEVEL='DEBUG'
 # LOG_LEVEL = 'WARNING'
 
 # 文件下载
-FILES_STORE = './data/tmp/'
+FILES_STORE = './data/'
 # FILES_URLS_FIELD = ''
 # FILES_RESULT_FIELD = ''
