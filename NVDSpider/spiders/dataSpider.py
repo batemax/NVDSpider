@@ -7,9 +7,11 @@ from urllib.parse import urljoin
 class dataSpider(scrapy.Spider):
     name = 'dataSpider'
     allowed_domains = ['nvd.nist.gov']
-    start_urls = ['http://nvd.nist.gov/']
+    start_urls = ['https://nvd.nist.gov/vuln/data-feeds']
 
-    # 爬取每月list
+
+
+    # 下载zip文件
     def parse(self, response):
         le = LinkExtractor(restrict_css='ul.list-inline li')
         for link in le.extract_links(response):
