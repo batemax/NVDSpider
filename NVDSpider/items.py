@@ -25,6 +25,7 @@ class VulnItem(scrapy.Item):
     upd_time = scrapy.Field()
 
     vuln_type = scrapy.Field()
+    vuln_ref = scrapy.Field()
 
     v3_vector = scrapy.Field()
     v3_AV = scrapy.Field()

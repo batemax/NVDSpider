@@ -10,8 +10,7 @@ from NVDSpider.items import VulnItem
 class detailSpider(scrapy.Spider):
     name = 'testSpider'
     allowed_domains = ['nvd.nist.gov']
-    start_urls = ['https://nvd.nist.gov/vuln/detail/2019-15530']
-
+    start_urls = ['https://nvd.nist.gov/vuln/detail/CVE-2019-15927']
     # 爬取每日更新
     def parse(self, response):
         sel = response.css('div#page-content')
@@ -29,6 +28,24 @@ class detailSpider(scrapy.Spider):
         vulnItem['vuln_desc'] = vuln_desc
         vulnItem['vuln_url'] = vuln_url
 
+        # 是否有参考信息
+        try:
+            hyper_link = sel.xpath('//table[@data-testid="vuln-hyperlinks-table"]/tbody')
+            vuln_ref = []
+            for tr in hyper_link.xpath('tr'):
+                ref_data = {}
+                ref_url = tr.xpath('td[1]/a/@href').extract_first()
+                ref_tags = []
+                for tag in tr.xpath('td[2]/span'):
+                    tag = tag.xpath('text()').extract_first()
+                    ref_tags.append(tag)
+                ref_data['ref_url'] = ref_url
+                ref_data['ref_tags'] = ref_tags
+                vuln_ref.append(ref_data)
+            vulnItem['vuln_ref'] = vuln_ref
+        except:
+            print(vuln_id+"没有参考信息")
+
         # 是否有v2信息
         try:
             impact = sel.xpath('//div[@data-testid="vuln-cvss-container"]')
@@ -36,10 +53,14 @@ class detailSpider(scrapy.Spider):
             v2_metric = impact.xpath('//p[@data-testid="vuln-cvssv3-metrics-container"]')
 
             v2_vector = v2_score.xpath('//span[@data-testid="vuln-cvssv2-vector"]/text()').extract_first().strip()
-            v2_impact_score = v2_score.xpath('//span[@data-testid="vuln-cvssv2-impact-subscore"]/text()').extract_first().strip()
-            v2_base_score = v2_score.xpath('//span[@data-testid="vuln-cvssv2-base-score"]/text()').extract_first().strip()
-            v2_exp_score = v2_score.xpath('//span[@data-testid="vuln-cvssv2-exploitability-score"]/text()').extract_first().strip()
-            v2_vuln_level = v2_score.xpath('//span[@data-testid="vuln-cvssv2-base-score-severity"]/text()').extract_first().strip()
+            v2_impact_score = v2_score.xpath(
+                '//span[@data-testid="vuln-cvssv2-impact-subscore"]/text()').extract_first().strip()
+            v2_base_score = v2_score.xpath(
+                '//span[@data-testid="vuln-cvssv2-base-score"]/text()').extract_first().strip()
+            v2_exp_score = v2_score.xpath(
+                '//span[@data-testid="vuln-cvssv2-exploitability-score"]/text()').extract_first().strip()
+            v2_vuln_level = v2_score.xpath(
+                '//span[@data-testid="vuln-cvssv2-base-score-severity"]/text()').extract_first().strip()
 
             v2_AV = v2_metric.xpath('//span[@data-testid="vuln-cvssv2-av"]/text()').extract_first().strip()
             v2_AC = v2_metric.xpath('//span[@data-testid="vuln-cvssv2-ac"]/text()').extract_first().strip()
@@ -66,8 +87,7 @@ class detailSpider(scrapy.Spider):
             vulnItem['v2_A'] = v2_A
             vulnItem['v2_add_info'] = v2_add_info
         except:
-            pass
-            # print(vulnItem)
+            print(vuln_id+"没有V2信息")
         else:
             # 是否有v3信息
             try:
@@ -75,10 +95,14 @@ class detailSpider(scrapy.Spider):
                 v3_metric = impact.xpath('//p[@data-testid="vuln-cvssv3-metrics-container"]')
 
                 v3_vector = v3_score.xpath('//span[@data-testid="vuln-cvssv3-vector"]/text()').extract_first().strip()
-                v3_impact_score = v3_score.xpath('//span[@data-testid="vuln-cvssv3-impact-score"]/text()').extract_first().strip()
-                v3_base_score = v3_score.xpath('//span[@data-testid="vuln-cvssv3-base-score"]/text()').extract_first().strip()
-                v3_exp_score = v3_score.xpath('//span[@data-testid="vuln-cvssv3-exploitability-score"]/text()').extract_first().strip()
-                v3_vuln_level = v3_score.xpath('//span[@data-testid="vuln-cvssv3-base-score-severity"]/text()').extract_first().strip()
+                v3_impact_score = v3_score.xpath(
+                    '//span[@data-testid="vuln-cvssv3-impact-score"]/text()').extract_first().strip()
+                v3_base_score = v3_score.xpath(
+                    '//span[@data-testid="vuln-cvssv3-base-score"]/text()').extract_first().strip()
+                v3_exp_score = v3_score.xpath(
+                    '//span[@data-testid="vuln-cvssv3-exploitability-score"]/text()').extract_first().strip()
+                v3_vuln_level = v3_score.xpath(
+                    '//span[@data-testid="vuln-cvssv3-base-score-severity"]/text()').extract_first().strip()
 
                 v3_AV = v3_metric.xpath('//span[@data-testid="vuln-cvssv3-av"]/text()').extract_first().strip()
                 v3_AC = v3_metric.xpath('//span[@data-testid="vuln-cvssv3-ac"]/text()').extract_first().strip()
@@ -103,11 +127,9 @@ class detailSpider(scrapy.Spider):
                 vulnItem['v3_I'] = v3_I
                 vulnItem['v3_A'] = v3_A
             except:
-                pass
-                # print(vulnItem)
+                print(vuln_id+"没有V3信息")
         finally:
-            # print(vulnItem)
-            return vulnItem
-
+            print(vulnItem)
+            # return vulnItem
     def close_spider(self):
         self.client.close()

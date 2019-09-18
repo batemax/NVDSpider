@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # 从json读取数据，并存储到数据库中
 from datetime import datetime
+from urllib.parse import urljoin
 
 import pymongo
 import os
@@ -35,12 +36,14 @@ class mongoSync(object):
                 item_dict = {}
                 # cve_id
                 cve_id = cve_info['CVE_data_meta']['ID']
+                cve_url = urljoin('https://nvd.nist.gov/vuln/detail/', cve_id)
                 publishDate = cve_item['publishedDate']
                 publishDate = datetime.strptime(publishDate, "%Y-%m-%dT%H:%MZ")
                 modifyDate = cve_item['lastModifiedDate']
                 modifyDate = datetime.strptime(modifyDate, "%Y-%m-%dT%H:%MZ")
 
                 item_dict['_id'] = cve_id
+                item_dict['vuln_url'] = cve_url
                 item_dict['rel_time'] = publishDate
                 item_dict['upd_time'] = modifyDate
 
@@ -74,8 +77,6 @@ class mongoSync(object):
                     item_dict['v2_severity'] = v2_severity
                     item_dict['v2_exp_score'] = v2_exploitabilityScore
                     item_dict['v2_impact_score'] = v2_impactScore
-
-
 
                     # 判断v3信息是否存在
                     try:
@@ -113,6 +114,20 @@ class mongoSync(object):
                     finally:
                         # 计算
                         description = cve_info['description']['description_data'][0]['value']
+
+                        vuln_ref = []
+                        for data in cve_info['references']['reference_data']:
+                            ref_data = {}
+                            ref_url = data['url']
+                            ref_tags = data['tags']
+                            # ref_tags = []
+                            # for tag in data['tags']:
+                            #     ref_tags.append(tag)
+                            ref_data['ref_url'] = ref_url
+                            ref_data['ref_tags'] = ref_tags
+                            vuln_ref.append(ref_data)
+                        item_dict['vuln_ref'] = vuln_ref
+
                         problem_type = cve_info['problemtype']['problemtype_data'][0]
                         cwe_type = []
                         descs = problem_type['description']

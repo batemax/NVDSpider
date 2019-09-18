@@ -15,8 +15,10 @@ class increSpider(scrapy.Spider):
     def parse(self, response):
         for sel in response.xpath('//a'):
             cvvid = sel.xpath('text()').extract_first().strip()
+            cvvid = 'CVE-'+cvvid
             idItem = IDItem()
             url = urljoin('https://nvd.nist.gov/vuln/detail/', cvvid)
             idItem['_id'] = cvvid
             idItem['vuln_url'] = url
+            print(idItem)
             yield idItem

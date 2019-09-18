@@ -93,9 +93,9 @@ ITEM_PIPELINES = {
 # 数据库设置
 MONGO_HOST = "127.0.0.1"  # 主机IP
 MONGO_PORT = 27017  # 端口号
-MONGO_DB = "spider"  # 库名
-MONGO_ID = "cvvid"
-MONGO_VULN = "cvvdetail"  # collection名
+MONGO_DB = "VulnBank"  # 库名
+MONGO_ID = "Nvdid"
+MONGO_VULN = "Nvd"  # collection名
 MONGO_USER = "user"
 MONGO_PSW = "user"
 

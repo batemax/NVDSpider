@@ -44,6 +44,23 @@ class detailSpider(scrapy.Spider):
         vulnItem['vuln_desc'] = vuln_desc
         vulnItem['vuln_url'] = vuln_url
 
+        # 是否有参考信息
+        try:
+            hyper_link = sel.xpath('//table[@data-testid="vuln-hyperlinks-table"]/tbody')
+            vuln_ref = []
+            for tr in hyper_link.xpath('tr'):
+                ref_data = {}
+                ref_url = tr.xpath('td[1]/a/@href').extract_first()
+                ref_tags = []
+                for tag in tr.xpath('td[2]/span'):
+                    tag = tag.xpath('text()').extract_first()
+                    ref_tags.append(tag)
+                ref_data['ref_url'] = ref_url
+                ref_data['ref_tags'] = ref_tags
+                vuln_ref.append(ref_data)
+            vulnItem['vuln_ref'] = vuln_ref
+        except:
+            print(vuln_id+"没有参考信息")
         # 是否有v2信息
         try:
             impact = sel.xpath('//div[@data-testid="vuln-cvss-container"]')
