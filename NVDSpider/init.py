@@ -35,7 +35,7 @@ def init_mongo(file_path):
 
 
 if __name__ == "__main__":
-    file_path = './data/init/'
+    file_path = './data/'
     data_result = data_crawl()
     if data_result:
         zip_result = zip2json(file_path)

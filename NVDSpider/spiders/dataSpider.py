@@ -12,6 +12,11 @@ class dataSpider(scrapy.Spider):
     name = 'dataSpider'
     allowed_domains = ['nvd.nist.gov']
     start_urls = ['https://nvd.nist.gov/vuln/data-feeds']
+    # custom_settings = {
+    #     'ITEM_PIPELINES': {
+    #         'NVDSpider.pipelines.FilePipeline.FilePipeline': 10
+    #     }
+    # }
 
     # 下载zip文件
     def parse(self, response):

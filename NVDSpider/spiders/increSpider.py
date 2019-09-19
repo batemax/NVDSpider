@@ -20,5 +20,6 @@ class increSpider(scrapy.Spider):
             url = urljoin('https://nvd.nist.gov/vuln/detail/', cvvid)
             idItem['_id'] = cvvid
             idItem['vuln_url'] = url
-            print(idItem)
+
+            # print(idItem)
             yield idItem

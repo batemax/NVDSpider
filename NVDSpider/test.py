@@ -16,9 +16,6 @@ def zip2json(file_path):
         return zip_result
 
 
-
-
-
 def increCrawl():
     try:
         os.system('scrapy crawl increSpider')
@@ -56,7 +53,6 @@ def dataCrawl():
 
 
 if __name__ == "__main__":
-    file_path = './data/'
-    data_result = dataCrawl()
-    if data_result:
-        zip_result = zip2json(file_path)
+    # incre_result = increCrawl()
+    # if incre_result:
+    detail_result = detailCrawl()

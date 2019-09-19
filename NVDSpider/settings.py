@@ -53,6 +53,8 @@ COOKIES_ENABLED = False
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
     # 'NVDSpider.middlewares.NvdspiderDownloaderMiddleware': 543,
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+    'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
 }
 
 # Enable or disable extensions
@@ -66,7 +68,7 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     # 'NVDSpider.pipelines.NvdspiderPipeline': 300,
     'NVDSpider.pipelines.MongoPipeline.MongoPipeline': 300,
-    'NVDSpider.pipelines.FilePipeline.FilePipeline': 10
+    'NVDSpider.pipelines.FilePipeline.FilePipeline': 290
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
