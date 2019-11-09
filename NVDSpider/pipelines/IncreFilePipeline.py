@@ -8,10 +8,8 @@ from scrapy.exceptions import DropItem
 
 from NVDSpider.items import FileItem
 from scrapy.pipelines.files import FilesPipeline
-from NVDSpider.settings import FILES_STORE
 
-
-class FilePipeline(FilesPipeline):
+class IncreFilePipeline(FilesPipeline):
 
     def get_media_requests(self, item, info):
         if isinstance(item,FileItem):
@@ -22,7 +20,7 @@ class FilePipeline(FilesPipeline):
 
     def file_path(self, request, response=None, info=None):
         file_name = request.url.split('/')[-1]
-        return 'full/%s' % file_name
+        return 'incre/%s' % file_name
         # return file_name
 
     def item_completed(self, results, item, info):

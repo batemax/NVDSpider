@@ -35,23 +35,26 @@ class mongoSync(object):
                 cve_info = cve_item['cve']
                 item_dict = {}
                 # cve_id
-                cve_id = cve_info['CVE_data_meta']['ID']
-                cve_url = urljoin('https://nvd.nist.gov/vuln/detail/', cve_id)
-                publishDate = cve_item['publishedDate']
-                publishDate = datetime.strptime(publishDate, "%Y-%m-%dT%H:%MZ")
-                modifyDate = cve_item['lastModifiedDate']
-                modifyDate = datetime.strptime(modifyDate, "%Y-%m-%dT%H:%MZ")
+                try:
+                    cve_id = cve_info['CVE_data_meta']['ID']
+                    cve_url = urljoin('https://nvd.nist.gov/vuln/detail/', cve_id)
+                    publishDate = cve_item['publishedDate']
+                    publishDate = datetime.strptime(publishDate, "%Y-%m-%dT%H:%MZ")
+                    modifyDate = cve_item['lastModifiedDate']
+                    modifyDate = datetime.strptime(modifyDate, "%Y-%m-%dT%H:%MZ")
 
-                item_dict['_id'] = cve_id
-                item_dict['vuln_url'] = cve_url
-                item_dict['rel_time'] = publishDate
-                item_dict['upd_time'] = modifyDate
-
+                    item_dict['_id'] = cve_id
+                    item_dict['vuln_url'] = cve_url
+                    item_dict['rel_time'] = publishDate
+                    item_dict['upd_time'] = modifyDate
+                except:
+                    print(cve_id + "基础信息缺失")
                 # 判断v2信息是否存在
                 try:
                     cve_impact_v2 = cve_item['impact']['baseMetricV2']
                 except:
-                    print(cve_id + "没有V2信息")
+                    item_dict['v2_status'] = False
+                    # print(cve_id + "没有V2信息")
                     self.coll.update({'_id': cve_id}, {'$set': item_dict}, upsert=True)
                 else:
                     v2_vector = cve_impact_v2['cvssV2']['vectorString']
@@ -78,11 +81,14 @@ class mongoSync(object):
                     item_dict['v2_exp_score'] = v2_exploitabilityScore
                     item_dict['v2_impact_score'] = v2_impactScore
 
+                    item_dict['v2_status'] = True
+
                     # 判断v3信息是否存在
                     try:
                         cve_impact_v3 = cve_item['impact']['baseMetricV3']
                     except:
-                        print(cve_id + "没有V3信息")
+                        item_dict['v3_status'] = False
+                        # print(cve_id + "没有V3信息")
                     else:
                         v3_vector = cve_impact_v3['cvssV3']['vectorString']
                         v3_attackVector = cve_impact_v3['cvssV3']['attackVector']
@@ -111,21 +117,23 @@ class mongoSync(object):
                         item_dict['v3_vuln_level'] = v3_baseSeverity
                         item_dict['v3_exp_score'] = v3_exploitabilityScore
                         item_dict['v3_impact_score'] = v3_impactScore
-                    finally:
+
+                        item_dict['v3_status'] = True
+                    try:
                         # 计算
                         description = cve_info['description']['description_data'][0]['value']
 
                         vuln_ref = []
                         for data in cve_info['references']['reference_data']:
-                            ref_data = {}
-                            ref_url = data['url']
-                            ref_tags = data['tags']
+                            # ref_data = {}
+                            # ref_url = data['url']
+                            # ref_tags = data['tags']
                             # ref_tags = []
                             # for tag in data['tags']:
                             #     ref_tags.append(tag)
-                            ref_data['ref_url'] = ref_url
-                            ref_data['ref_tags'] = ref_tags
-                            vuln_ref.append(ref_data)
+                            # ref_data['ref_url'] = ref_url
+                            # ref_data['ref_tags'] = ref_tags
+                            vuln_ref.append(data)
                         item_dict['vuln_ref'] = vuln_ref
 
                         problem_type = cve_info['problemtype']['problemtype_data'][0]
@@ -136,6 +144,12 @@ class mongoSync(object):
 
                         item_dict['vuln_desc'] = description
                         item_dict['vuln_type'] = cwe_type
-                        # 插入数据库
-                        self.coll.update({'_id': cve_id}, {'$set': item_dict}, upsert=True)
+
+                        item_dict['vuln_config'] = cve_item['configurations']['nodes']
+                        item_dict['is_ref'] = True
+                    except:
+                        item_dict['is_ref'] = False
+                        print(cve_id + "没有参考/配置信息")
+                # 插入数据库
+                self.coll.update({'_id': cve_id}, {'$set': item_dict}, upsert=True)
         self.client.close()

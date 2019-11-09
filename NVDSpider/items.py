@@ -28,10 +28,18 @@ class VulnItem(scrapy.Item):
     vuln_desc = scrapy.Field()
     vuln_url = scrapy.Field()
     rel_time = scrapy.Field()
+
+    is_upd_time = scrapy.Field()
     upd_time = scrapy.Field()
 
     vuln_type = scrapy.Field()
+
+    is_ref = scrapy.Field()
+
     vuln_ref = scrapy.Field()
+    vuln_config = scrapy.Field()
+
+    v3_status = scrapy.Field()
 
     v3_vector = scrapy.Field()
     v3_AV = scrapy.Field()
@@ -46,6 +54,8 @@ class VulnItem(scrapy.Item):
     v3_base_score = scrapy.Field()
     v3_exp_score = scrapy.Field()
     v3_vuln_level = scrapy.Field()
+
+    v2_status = scrapy.Field()
 
     v2_vector = scrapy.Field()
     v2_AV = scrapy.Field()

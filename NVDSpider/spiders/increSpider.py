@@ -10,7 +10,11 @@ class increSpider(scrapy.Spider):
     name = 'increSpider'
     allowed_domains = ['cassandra.cerias.purdue.edu']
     start_urls = ['https://cassandra.cerias.purdue.edu/CVE_changes/today.html']
-
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'NVDSpider.pipelines.MongoPipeline.MongoPipeline': 300
+        }
+    }
     # 爬取每日更新
     def parse(self, response):
         for sel in response.xpath('//a'):

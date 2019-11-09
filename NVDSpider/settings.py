@@ -68,7 +68,8 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     # 'NVDSpider.pipelines.NvdspiderPipeline': 300,
     'NVDSpider.pipelines.MongoPipeline.MongoPipeline': 300,
-    'NVDSpider.pipelines.FilePipeline.FilePipeline': 290
+    'NVDSpider.pipelines.FilePipeline.FilePipeline': 290,
+    'NVDSpider.pipelines.IncreFilePipeline.IncreFilePipeline': 292
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

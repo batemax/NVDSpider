@@ -51,8 +51,18 @@ def dataCrawl():
     except:
         return False
 
+def increDataCrawl():
+    try:
+        os.system('scrapy crawl increDataSpider')
+        print("下载完成")
+        return True
+    except:
+        return False
 
 if __name__ == "__main__":
     # incre_result = increCrawl()
     # if incre_result:
-    detail_result = detailCrawl()
+    file_path = './data/incre/'
+    data_result = increDataCrawl()
+    if data_result:
+        zip_result = zip2json(file_path)

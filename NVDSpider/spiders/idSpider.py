@@ -4,10 +4,17 @@ import scrapy
 from scrapy.linkextractors import LinkExtractor
 from NVDSpider.items import IDItem
 from urllib.parse import urljoin
+
+
 class idSpider(scrapy.Spider):
     name = 'idSpider'
     allowed_domains = ['nvd.nist.gov']
-    start_urls = ['http://nvd.nist.gov/']
+    start_urls = ['https://nvd.nist.gov/vuln/full-listing']
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'NVDSpider.pipelines.MongoPipeline.MongoPipeline': 300
+        }
+    }
 
     # 爬取每月list
     def parse(self, response):
@@ -21,8 +28,7 @@ class idSpider(scrapy.Spider):
             url = sel.xpath('a/@href').extract_first().strip()
             cvvid = sel.xpath('a/text()').extract_first().strip()
             idItem = IDItem()
-            url = urljoin('https://nvd.nist.gov',url)
+            url = urljoin('https://nvd.nist.gov', url)
             idItem['_id'] = cvvid
             idItem['url'] = url
             yield idItem
-

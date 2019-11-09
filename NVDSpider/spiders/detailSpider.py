@@ -16,6 +16,11 @@ class detailSpider(scrapy.Spider):
     name = 'detailSpider'
     allowed_domains = ['nvd.nist.gov']
     start_urls = []
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'NVDSpider.pipelines.MongoPipeline.MongoPipeline': 300
+        }
+    }
 
     def __init__(self):
         client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
@@ -44,6 +49,10 @@ class detailSpider(scrapy.Spider):
         vulnItem['vuln_desc'] = vuln_desc
         vulnItem['vuln_url'] = vuln_url
 
+        vulnItem['v2_status'] = False
+        vulnItem['v3_status'] = False
+        vulnItem['is_ref'] = False
+
         # 是否有参考信息
         try:
             hyper_link = sel.xpath('//table[@data-testid="vuln-hyperlinks-table"]/tbody')
@@ -59,6 +68,7 @@ class detailSpider(scrapy.Spider):
                 ref_data['ref_tags'] = ref_tags
                 vuln_ref.append(ref_data)
             vulnItem['vuln_ref'] = vuln_ref
+            vulnItem['is_ref'] = True
         except:
             print(vuln_id+"没有参考信息")
         # 是否有v2信息
@@ -101,6 +111,7 @@ class detailSpider(scrapy.Spider):
             vulnItem['v2_I'] = v2_I
             vulnItem['v2_A'] = v2_A
             vulnItem['v2_add_info'] = v2_add_info
+            vulnItem['v2_status'] = True
         except:
             print(vuln_id+"没有V2信息")
         else:
@@ -141,6 +152,7 @@ class detailSpider(scrapy.Spider):
                 vulnItem['v3_C'] = v3_C
                 vulnItem['v3_I'] = v3_I
                 vulnItem['v3_A'] = v3_A
+                vulnItem['v3_status'] = True
             except:
                 print(vuln_id+"没有V3信息")
         finally:

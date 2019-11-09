@@ -9,7 +9,7 @@ from scrapy import signals
 
 
 class NvdspiderSpiderMiddleware(object):
-    # Not all methods need to be defined. If a method is not defined,
+    # Not full methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
     # passed objects.
 
@@ -57,7 +57,7 @@ class NvdspiderSpiderMiddleware(object):
 
 
 class NvdspiderDownloaderMiddleware(object):
-    # Not all methods need to be defined. If a method is not defined,
+    # Not full methods need to be defined. If a method is not defined,
     # scrapy acts as if the downloader middleware does not modify the
     # passed objects.
 
