@@ -26,7 +26,7 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-# DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 # CONCURRENT_REQUESTS_PER_DOMAIN = 16
 # CONCURRENT_REQUESTS_PER_IP = 16
@@ -96,6 +96,7 @@ MONGO_PORT = 27017  # 端口号
 MONGO_DB = "VulnBank"  # 库名
 MONGO_ID = "Nvdid"
 MONGO_VULN = "Nvd"  # collection名
+MONGO_RECENT = "Nvd_recent"
 MONGO_USER = "user"
 MONGO_PSW = "user"
 

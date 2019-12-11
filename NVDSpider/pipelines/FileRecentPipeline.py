@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# 所有文件下载pipeline
+# 增量文件下载pipeline
 import os
 import re
 
@@ -11,7 +11,7 @@ from scrapy.pipelines.files import FilesPipeline
 from NVDSpider.settings import FILES_STORE
 
 
-class FilePipeline(FilesPipeline):
+class FileRecentPipeline(FilesPipeline):
 
     def get_media_requests(self, item, info):
         for file_url in item['file_urls']:
@@ -22,8 +22,7 @@ class FilePipeline(FilesPipeline):
 
     def file_path(self, request, response=None, info=None):
         file_name = request.url.split('/')[-1]
-        return 'full/%s' % file_name
-
+        return 'recent/%s' % file_name
 
     def item_completed(self, results, item, info):
         file_paths = [x['path'] for ok, x in results if ok]

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # 从json读取数据，并存储到数据库中
+import re
 import zipfile
 from datetime import datetime
 from urllib.parse import urljoin
@@ -7,6 +8,7 @@ from urllib.parse import urljoin
 import pymongo
 import os
 import json
+import demjson
 from NVDSpider.settings import MONGO_HOST
 from NVDSpider.settings import MONGO_PORT
 from NVDSpider.settings import MONGO_DB
@@ -14,10 +16,10 @@ from NVDSpider.settings import MONGO_VULN
 
 
 class mongoSync(object):
-    def __init__(self):
+    def __init__(self, collection):
         self.client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
         self.db = self.client[MONGO_DB]  # 获得数据库的句柄
-        self.coll = self.db[MONGO_VULN]  # 获得collection的句柄
+        self.coll = self.db[collection]  # 获得collection的句柄
 
     def load_file(self, folder_path):
         files = os.listdir(folder_path)
@@ -34,6 +36,7 @@ class mongoSync(object):
             for cve_item in cve_items:
                 cve_info = cve_item['cve']
                 item_dict = {}
+                vector_info = {}
                 # cve_id
                 cve_id = cve_info['CVE_data_meta']['ID']
                 cve_url = urljoin('https://nvd.nist.gov/vuln/detail/', cve_id)
@@ -51,8 +54,9 @@ class mongoSync(object):
                 try:
                     cve_impact_v2 = cve_item['impact']['baseMetricV2']
                 except:
+                    item_dict['v2_status'] = False
                     print(cve_id + "没有V2信息")
-                    self.coll.update({'_id': cve_id}, {'$set': item_dict}, upsert=True)
+                    # self.coll.update({'_id': cve_id}, {'$set': item_dict}, upsert=True)
                 else:
                     v2_vector = cve_impact_v2['cvssV2']['vectorString']
                     v2_accessVector = cve_impact_v2['cvssV2']['accessVector']
@@ -67,21 +71,25 @@ class mongoSync(object):
                     v2_impactScore = cve_impact_v2['impactScore']
 
                     item_dict['v2_vector'] = v2_vector
-                    item_dict['v2_AV'] = v2_accessVector
-                    item_dict['v2_AC'] = v2_accessComplexity
-                    item_dict['v2_AU'] = v2_authentication
-                    item_dict['v2_C'] = v2_confidentialityImpact
-                    item_dict['v2_I'] = v2_integrityImpact
-                    item_dict['v2_A'] = v2_availabilityImpact
+                    v2_vector_info = {}
+                    v2_vector_info['v2_AV'] = v2_accessVector
+                    v2_vector_info['v2_AC'] = v2_accessComplexity
+                    v2_vector_info['v2_AU'] = v2_authentication
+                    v2_vector_info['v2_C'] = v2_confidentialityImpact
+                    v2_vector_info['v2_I'] = v2_integrityImpact
+                    v2_vector_info['v2_A'] = v2_availabilityImpact
+                    vector_info['v2'] = v2_vector_info
+
                     item_dict['v2_base_score'] = v2_baseScore
                     item_dict['v2_severity'] = v2_severity
                     item_dict['v2_exp_score'] = v2_exploitabilityScore
                     item_dict['v2_impact_score'] = v2_impactScore
-
+                    item_dict['v2_status'] = True
                     # 判断v3信息是否存在
                     try:
                         cve_impact_v3 = cve_item['impact']['baseMetricV3']
                     except:
+                        item_dict['v3_status'] = False
                         print(cve_id + "没有V3信息")
                     else:
                         v3_vector = cve_impact_v3['cvssV3']['vectorString']
@@ -99,22 +107,26 @@ class mongoSync(object):
                         v3_impactScore = cve_impact_v3['impactScore']
 
                         item_dict['v3_vector'] = v3_vector
-                        item_dict['v3_AV'] = v3_attackVector
-                        item_dict['v3_AC'] = v3_attackComplexity
-                        item_dict['v3_PR'] = v3_privilegesRequired
-                        item_dict['v3_UI'] = v3_userInteraction
-                        item_dict['v3_S'] = v3_scope
-                        item_dict['v3_C'] = v3_confidentialityImpact
-                        item_dict['v3_I'] = v3_integrityImpact
-                        item_dict['v3_A'] = v3_availabilityImpact
+                        v3_vector_info = {}
+                        v3_vector_info['v3_AV'] = v3_attackVector
+                        v3_vector_info['v3_AC'] = v3_attackComplexity
+                        v3_vector_info['v3_PR'] = v3_privilegesRequired
+                        v3_vector_info['v3_UI'] = v3_userInteraction
+                        v3_vector_info['v3_S'] = v3_scope
+                        v3_vector_info['v3_C'] = v3_confidentialityImpact
+                        v3_vector_info['v3_I'] = v3_integrityImpact
+                        v3_vector_info['v3_A'] = v3_availabilityImpact
+                        vector_info['v3'] = v3_vector_info
+
                         item_dict['v3_base_score'] = v3_baseScore
                         item_dict['v3_vuln_level'] = v3_baseSeverity
                         item_dict['v3_exp_score'] = v3_exploitabilityScore
                         item_dict['v3_impact_score'] = v3_impactScore
+                        item_dict['v3_status'] = True
                     finally:
                         # 计算
                         description = cve_info['description']['description_data'][0]['value']
-
+                        item_dict['vector_info'] = vector_info
                         vuln_ref = []
                         for data in cve_info['references']['reference_data']:
                             ref_data = {}
@@ -127,7 +139,44 @@ class mongoSync(object):
                             ref_data['ref_tags'] = ref_tags
                             vuln_ref.append(ref_data)
                         item_dict['vuln_ref'] = vuln_ref
-
+                        item_dict['vuln_config'] = cve_item["configurations"]["nodes"]
+                        vuln_configs = str(cve_item["configurations"]["nodes"])
+                        vuln_configs = re.findall("'cpe23Uri': 'cpe:2.3:.*?:(.*?):"
+                                                  "(.*?):(.*?):\\*.*?'[, ]*(.*?)}"
+                                                  , vuln_configs, re.M | re.S)
+                        # print(vuln_configs)
+                        config_arr = []
+                        version_arr = []
+                        config_dict = dict(company="", name="", version=[])
+                        for config in vuln_configs:
+                            if config[1] in config_dict.values():
+                                if config[3] != '':
+                                    ver_string = '{' + config[3] + '}'
+                                    ver_json = demjson.decode(ver_string)
+                                    version_arr.append(ver_json)
+                                    config_dict['version'] = version_arr
+                                else:
+                                    version_arr.append(config[2])
+                                    config_dict['version'] = version_arr
+                            else:
+                                config_arr.append(config_dict)
+                                version_arr = []
+                                config_dict = dict(company="", name="", version=[])
+                                if config[3] != '':
+                                    config_dict['company'] = config[0]
+                                    config_dict['name'] = config[1]
+                                    ver_string = '{' + config[3] + '}'
+                                    ver_json = demjson.decode(ver_string)
+                                    version_arr.append(ver_json)
+                                    config_dict['version'] = version_arr
+                                else:
+                                    config_dict['company'] = config[0]
+                                    config_dict['name'] = config[1]
+                                    version_arr.append(config[2])
+                                    config_dict['version'] = version_arr
+                        config_arr.append(config_dict)
+                        config_arr.pop(0)
+                        item_dict['vuln_soft'] = config_arr
                         problem_type = cve_info['problemtype']['problemtype_data'][0]
                         cwe_type = []
                         descs = problem_type['description']
